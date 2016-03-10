@@ -32,4 +32,12 @@ public class TokenDaoITest {
         assertNull(tokenDao.findByUser(user));
     }
 
+    @Test
+    public void testRemoveExpiredTokens() {
+        int sizeOriginal = tokenDao.findAll().size();
+        assertEquals(sizeOriginal, 8);
+        tokenDao.removeExpiredTokens();
+        int size = tokenDao.findAll().size();
+        assertEquals(size, 4);
+    }
 }

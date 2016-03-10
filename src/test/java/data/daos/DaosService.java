@@ -64,8 +64,13 @@ public class DaosService {
         date.set(Calendar.MILLISECOND, 0);
         for (int i = 0; i < 4; i++) {
             date.add(Calendar.HOUR_OF_DAY, 1);
-            reserveDao.save(new Reserve(courtDao.findOne(i+1), users[i], date));
+            reserveDao.save(new Reserve(courtDao.findOne(i + 1), users[i], date));
         }
+        // Inicio Raquel
+        for (Token token : this.createExpiredTokens(this.createPlayers(10, 4))) {
+            map.put("tex" + token.getUser().getUsername(), token);
+        }
+        // Fin Raquel
     }
 
     public User[] createPlayers(int initial, int size) {
@@ -88,6 +93,22 @@ public class DaosService {
         }
         return tokenList;
     }
+
+    // Inicio Raquel
+    private List<Token> createExpiredTokens(User[] users) {
+        List<Token> tokenList = new ArrayList<>();
+        Token token;
+        for (User user : users) {
+            token = new Token(user);
+            Calendar date = Calendar.getInstance();
+            date.set(2010, 8, 7);
+            token.setCreationDate(date);
+            tokenDao.save(token);
+            tokenList.add(token);
+        }
+        return tokenList;
+    }
+    // Fin Raquel
 
     public void createCourts(int initial, int size) {
         for (int id = 0; id < size; id++) {
