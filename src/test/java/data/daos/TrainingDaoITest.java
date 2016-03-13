@@ -35,7 +35,7 @@ public class TrainingDaoITest {
     private DaosService daosService;
 
     @Test
-    public void findByStartDate() {
+    public void testFindByStartDate() {
         Calendar date = Calendar.getInstance();
         date.add(Calendar.DAY_OF_YEAR, 1);
         date.set(Calendar.HOUR_OF_DAY, 9);
@@ -54,7 +54,7 @@ public class TrainingDaoITest {
     }
 
     @Test
-    public void registerUserInTraining() {
+    public void testRegisterUserInTraining() {
         User u1 = new User("user1", "user1@gmail.com", "p", Calendar.getInstance());
         userDao.save(u1);
         authorizationDao.save(new Authorization(u1, Role.PLAYER));
@@ -62,6 +62,18 @@ public class TrainingDaoITest {
         Training training = trainingDao.findAll().get(0);
         trainingDao.registerUserInTraining(u1, training);
         assertEquals(1, trainingDao.findAll().get(0).getUserList().size());
+    }
+
+    @Test
+    public void testDeleteUserInTraining() {
+        // Register user in training
+        User u0 = userDao.findByUsernameOrEmail("u0");
+        Training training = trainingDao.findAll().get(0);
+        trainingDao.registerUserInTraining(u0, training);
+        // Remove user from training
+        assertEquals(1, trainingDao.findAll().get(0).getUserList().size());
+        trainingDao.deleteUserInTraining(u0, training);
+        assertEquals(0, trainingDao.findAll().get(0).getUserList().size());
     }
 
 }
