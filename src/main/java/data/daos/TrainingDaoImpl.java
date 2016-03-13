@@ -19,10 +19,13 @@ public class TrainingDaoImpl implements TrainingDaoExtended {
 
     @Override
     public void createOneTrainingPerWeek(Calendar startDate, Calendar finishDate, Court court) {
+        // el entrenador podrá crear clases de padel, de una hora a la semana, con una fecha de inicio y una de final, asociados a una
+        // pista.
         Calendar date = startDate;
         do {
             SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
             System.out.println("------->Probando a insertar el:" + sdf.format(date.getTime()));
+            // comprobamos que la pista no esta reservada en esa hora y que no hay mas reservas para la misma pista en una semana
             if (!existTraining(date) && !existTrainingInWeek(date, court)) {
                 Training training = new Training(startDate, court);
                 trainingDao.save(training);

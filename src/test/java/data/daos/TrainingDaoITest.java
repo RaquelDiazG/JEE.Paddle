@@ -58,6 +58,11 @@ public class TrainingDaoITest {
     }
 
     @Test
+    public void testFindByCourt() {
+        assertEquals(1, trainingDao.findTrainingsByCourt(courtDao.findAll().get(2)).size());
+    }
+
+    @Test
     public void testRegisterUserInTraining() {
         User u1 = new User("user1", "user1@gmail.com", "p", Calendar.getInstance());
         userDao.save(u1);
