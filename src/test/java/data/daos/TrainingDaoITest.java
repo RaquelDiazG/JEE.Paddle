@@ -76,4 +76,12 @@ public class TrainingDaoITest {
         assertEquals(0, trainingDao.findAll().get(0).getUserList().size());
     }
 
+    @Test
+    public void testDeleteTraining() {
+        assertEquals(4, trainingDao.findAll().size());
+        Training training = trainingDao.findAll().get(3);
+        trainingDao.delete(training);
+        assertEquals(3, trainingDao.findAll().size());
+    }
+
 }
