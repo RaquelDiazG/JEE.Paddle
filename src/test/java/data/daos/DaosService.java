@@ -16,6 +16,7 @@ import data.entities.Court;
 import data.entities.Reserve;
 import data.entities.Role;
 import data.entities.Token;
+import data.entities.Training;
 import data.entities.User;
 import data.services.DataService;
 
@@ -36,6 +37,9 @@ public class DaosService {
 
     @Autowired
     private ReserveDao reserveDao;
+
+    @Autowired
+    private TrainingDao trainingDao;
 
     @Autowired
     private DataService genericService;
@@ -65,12 +69,11 @@ public class DaosService {
         for (int i = 0; i < 4; i++) {
             date.add(Calendar.HOUR_OF_DAY, 1);
             reserveDao.save(new Reserve(courtDao.findOne(i + 1), users[i], date));
+            trainingDao.save(new Training(date, courtDao.findOne(i + 1)));
         }
-        // Inicio Raquel
         for (Token token : this.createExpiredTokens(this.createPlayers(10, 4))) {
             map.put("tex" + token.getUser().getUsername(), token);
         }
-        // Fin Raquel
     }
 
     public User[] createPlayers(int initial, int size) {
@@ -94,7 +97,6 @@ public class DaosService {
         return tokenList;
     }
 
-    // Inicio Raquel
     private List<Token> createExpiredTokens(User[] users) {
         List<Token> tokenList = new ArrayList<>();
         Token token;
@@ -108,7 +110,6 @@ public class DaosService {
         }
         return tokenList;
     }
-    // Fin Raquel
 
     public void createCourts(int initial, int size) {
         for (int id = 0; id < size; id++) {
