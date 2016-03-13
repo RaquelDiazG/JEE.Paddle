@@ -14,6 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import config.PersistenceConfig;
 import config.TestsPersistenceConfig;
 import data.entities.Authorization;
+import data.entities.Court;
 import data.entities.Role;
 import data.entities.Training;
 import data.entities.User;
@@ -30,6 +31,9 @@ public class TrainingDaoITest {
 
     @Autowired
     private AuthorizationDao authorizationDao;
+
+    @Autowired
+    private CourtDao courtDao;
 
     @Autowired
     private DaosService daosService;
@@ -82,6 +86,21 @@ public class TrainingDaoITest {
         Training training = trainingDao.findAll().get(3);
         trainingDao.delete(training);
         assertEquals(3, trainingDao.findAll().size());
+    }
+
+    @Test
+    public void testCreateOneTrainingPerWeek() {
+        Court court = courtDao.findAll().get(0);
+        Calendar startDate = Calendar.getInstance();
+        startDate.set(2016, 2, 14, 9, 0, 0);
+        Calendar finishDate = Calendar.getInstance();
+        finishDate.set(2016, 2, 25, 9, 0, 0);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+        System.out.println(sdf.format(startDate.getTime()));
+        System.out.println(sdf.format(finishDate.getTime()));
+        assertEquals(4, trainingDao.findAll().size());
+        trainingDao.createOneTrainingPerWeek(startDate, finishDate, court);
+        assertEquals(5, trainingDao.findAll().size());
     }
 
 }
