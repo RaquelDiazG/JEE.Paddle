@@ -1,7 +1,9 @@
 package data.daos;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -18,9 +20,10 @@ public class TrainingDaoImpl implements TrainingDaoExtended {
     private UserDao userDao;
 
     @Override
-    public void createOneTrainingPerWeek(Calendar startDate, Calendar finishDate, Court court) {
+    public  List<Training> createOneTrainingPerWeek(Calendar startDate, Calendar finishDate, Court court) {
         // el entrenador podrá crear clases de padel, de una hora a la semana, con una fecha de inicio y una de final, asociados a una
         // pista.
+        List<Training> trainingsCreated = new ArrayList<>();
         Calendar date = startDate;
         do {
             SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
@@ -29,10 +32,12 @@ public class TrainingDaoImpl implements TrainingDaoExtended {
             if (!existTraining(date) && !existTrainingInWeek(date, court)) {
                 Training training = new Training(startDate, court);
                 trainingDao.save(training);
+                trainingsCreated.add(training);
             }
             // sumamos 1 dia
             date.add(Calendar.DAY_OF_YEAR, 1);
         } while (date.getTimeInMillis() < finishDate.getTimeInMillis());
+        return trainingsCreated;
     }
 
     private boolean existTraining(Calendar date) {
