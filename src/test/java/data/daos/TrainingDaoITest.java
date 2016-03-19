@@ -17,6 +17,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import config.PersistenceConfig;
 import config.TestsPersistenceConfig;
 import data.entities.Court;
+import data.entities.Training;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {PersistenceConfig.class, TestsPersistenceConfig.class})
@@ -83,12 +84,12 @@ public class TrainingDaoITest {
     // assertEquals(0, trainingDao.findAll().get(0).getUserList().size());
     // }
     //
-    // @Test
-    // public void testDeleteTraining() {
-    // assertEquals(4, trainingDao.findAll().size());
-    // Training training = trainingDao.findAll().get(3);
-    // trainingDao.delete(training);
-    // assertEquals(3, trainingDao.findAll().size());
-    // }
+    @Test
+    public void testDeleteTraining() {
+        assertEquals(2, trainingDao.findAll().size());
+        Training training = trainingDao.findAll().get(1);
+        trainingDao.delete(training);
+        assertEquals(1, trainingDao.findAll().size());
+    }
 
 }
