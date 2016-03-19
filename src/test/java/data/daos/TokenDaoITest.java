@@ -26,16 +26,20 @@ public class TokenDaoITest {
 
     @Test
     public void testFindByUser() {
+        // existe token
         Token token = (Token) daosService.getMap().get("tu1");
-        User user = (User) daosService.getMap().get("u4");
         assertEquals(token, tokenDao.findByUser(token.getUser()));
+        // no existe token
+        User user = (User) daosService.getMap().get("u4");
         assertNull(tokenDao.findByUser(user));
     }
 
     @Test
     public void testRemoveExpiredTokens() {
+        // obtenemos todos los tokens
         int sizeOriginal = tokenDao.findAll().size();
         assertEquals(sizeOriginal, 8);
+        // eliminamos los tokens caducados
         tokenDao.removeExpiredTokens();
         int size = tokenDao.findAll().size();
         assertEquals(size, 4);
