@@ -14,13 +14,13 @@ public class TrainingDaoImpl implements TrainingDaoExtended {
     private UserDao userDao;
 
     @Override
-    public Training registerUserInTraining(User user, Training training) {
+    public Training registerTrainingPlayer(User user, Training training) {
         training.addUser(user);
         return trainingDao.save(training);
     }
 
     @Override
-    public boolean deleteUserInTraining(User user, Training training) {
+    public boolean deleteTrainingPlayer(User user, Training training) {
         return training.removeUser(user);
     }
 

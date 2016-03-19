@@ -36,6 +36,14 @@ public class TrainingController {
         this.courtDao = courtDao;
     }
 
+    public List<TrainingWrapper> showTrainings() {
+        List<TrainingWrapper> trainings = new ArrayList<>();
+        for (Training training : trainingDao.findAll()) {
+            trainings.add(new TrainingWrapper(training));
+        }
+        return trainings;
+    }
+
     public boolean createTraining(Calendar startDate, Calendar finishDate, Court court) {
         Training training = trainingDao.findByStartDateAndFinishDateAndCourt(startDate, finishDate, court);
         if (training == null) {// no existe
@@ -49,30 +57,22 @@ public class TrainingController {
         }
     }
 
-    public List<TrainingWrapper> showTrainings() {
-        List<TrainingWrapper> trainings = new ArrayList<>();
-        for (Training training : trainingDao.findAll()) {
-            trainings.add(new TrainingWrapper(training));
-        }
-        return trainings;
+    public void deleteTraining(Training training) {
+        trainingDao.delete(training);
     }
 
-    public boolean registerUserInTraining(User user, Training training) {
+    public boolean registerTrainingPlayer(User user, Training training) {
         // solo puede haber como maximo 4 alumnos por clase
         if (training.getUserList().size() < MAX_USERS_IN_TRAINING) {
-            Training register = trainingDao.registerUserInTraining(user, training);
+            Training register = trainingDao.registerTrainingPlayer(user, training);
             return register != null;
         } else {
             return false;
         }
     }
 
-    public void deleteTraining(Training training) {
-        trainingDao.delete(training);
-    }
-
     public boolean deleteTrainingPlayer(User user, Training training) {
-        return trainingDao.deleteUserInTraining(user, training);
+        return trainingDao.deleteTrainingPlayer(user, training);
     }
 
 }

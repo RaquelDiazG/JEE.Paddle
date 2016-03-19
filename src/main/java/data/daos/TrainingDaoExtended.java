@@ -5,8 +5,8 @@ import data.entities.User;
 
 public interface TrainingDaoExtended {
 
-    public Training registerUserInTraining(User user, Training training);
+    public Training registerTrainingPlayer(User user, Training training);
 
-    public boolean deleteUserInTraining(User user, Training training);
+    public boolean deleteTrainingPlayer(User user, Training training);
 
 }
