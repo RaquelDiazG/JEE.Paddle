@@ -14,12 +14,12 @@ public class UserDaoImpl implements UserDaoExtended {
     private TokenDao tokenDao;
 
     @Override
-    public User findByTokenValue(String tokenValue) {
+    public User findByTokenValueValid(String tokenValue) {
         Token token = tokenDao.findByValue(tokenValue);
-        if (token == null) {
-            return null;
-        } else {
+        if (token != null && token.isValid()) { // existe y no está caducado
             return token.getUser();
+        } else {
+            return null;
         }
     }
 
