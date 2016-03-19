@@ -60,6 +60,8 @@ public class DaosService {
          * 
          * 4 tokens -> tu0,tu1,tu2,tu3
          * 
+         * 4 usuarios -> u10,u11,u12,u13
+         * 
          * 4 tokens expirados -> texpu0,texpu1,texpu2,texpu3
          * 
          * 4 usuarios -> u4,u5,u6,u7
@@ -76,18 +78,30 @@ public class DaosService {
         for (User user : users) {
             map.put(user.getUsername(), user);
         }
+        System.out.println("ADD USERS - " + map.keySet());
         for (Token token : this.createTokens(users)) {
             map.put("t" + token.getUser().getUsername(), token);
         }
-        for (Token token : this.createExpiredTokens(this.createPlayers(10, 4))) {
-            map.put("texp" + token.getUser().getUsername(), token);
-        }
-        for (User user : this.createPlayers(4, 4)) {
+        System.out.println("ADD TOKENS - " + map.keySet());
+        User[] users2 = this.createPlayers(4, 4);
+        for (User user : users2) {
             map.put(user.getUsername(), user);
         }
+        System.out.println("ADD USERS - " + map.keySet());
         for (Court court : this.createCourts(1, 4)) {
             map.put("c" + court.getId(), court);
         }
+        System.out.println("ADD COURTS - " + map.keySet());
+        User[] users3 = this.createPlayers(8, 4);
+        for (User user : users3) {
+            map.put(user.getUsername(), user);
+        }
+        System.out.println("ADD USERS - " + map.keySet());
+        List<Token> tokens = this.createExpiredTokens(users3);
+        for (Token token : tokens) {
+            map.put("texp" + token.getUser().getUsername(), token);
+        }
+        System.out.println("ADD TOKENS EXPIRED - " + map.keySet());
         Calendar date = Calendar.getInstance();
         date.add(Calendar.DAY_OF_YEAR, 1);
         date.set(Calendar.HOUR_OF_DAY, 9);
@@ -101,7 +115,7 @@ public class DaosService {
             reserveDao.save(reserve);
             map.put("r" + "c" + courtDao.findOne(i + 1).getId() + users[i].getUsername(), reserve);
         }
-
+        System.out.println("ADD RESERVES - " + map.keySet());
         Calendar startDate;
         Calendar finishDate;
         // entrenamiento para consultar
@@ -131,6 +145,7 @@ public class DaosService {
         trainingDao.save(training4);
         map.put("tr" + "c" + training4.getCourt(), training4);
 
+        System.out.println(map.keySet());
     }
 
     public User[] createPlayers(int initial, int size) {
