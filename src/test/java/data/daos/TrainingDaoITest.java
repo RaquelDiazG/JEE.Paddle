@@ -65,7 +65,7 @@ public class TrainingDaoITest {
     }
 
     @Test
-    public void testRegisterUserInTraining() {
+    public void testRegisterTrainingPlayer() {
         // crear usuario
         User newUser = new User("newUser", "newUser@gmail.com", "p", Calendar.getInstance());
         userDao.save(newUser);
@@ -78,7 +78,7 @@ public class TrainingDaoITest {
     }
 
     @Test
-    public void testDeleteUserInTraining() {
+    public void testDeleteTrainingPlayer() {
         // borrar el usuario u3 del cuarto entrenamiento
         assertEquals(1, trainingDao.findOne(4).getUserList().size());
         User user = userDao.findByUsernameOrEmail("u3");

@@ -126,6 +126,7 @@ public class DaosService {
         startDate = new GregorianCalendar(2015, Calendar.APRIL, 15, 10, 00, 00);
         finishDate = new GregorianCalendar(2015, Calendar.APRIL, 30, 10, 00, 00);
         Training training4 = new Training(startDate, finishDate, courtDao.findOne(4));
+        training4.addUser((User) map.get("u2"));
         training4.addUser((User) map.get("u3"));
         trainingDao.save(training4);
         map.put("tr" + "c" + training4.getCourt(), training4);
