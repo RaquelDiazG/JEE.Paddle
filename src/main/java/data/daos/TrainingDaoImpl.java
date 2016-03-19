@@ -20,8 +20,9 @@ public class TrainingDaoImpl implements TrainingDaoExtended {
     }
 
     @Override
-    public boolean deleteTrainingPlayer(User user, Training training) {
-        return training.removeUser(user);
+    public Training deleteTrainingPlayer(User user, Training training) {
+        training.removeUser(user);
+        return trainingDao.save(training);
     }
 
 }

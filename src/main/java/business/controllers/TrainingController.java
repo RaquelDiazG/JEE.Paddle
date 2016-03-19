@@ -72,7 +72,11 @@ public class TrainingController {
     }
 
     public boolean deleteTrainingPlayer(User user, Training training) {
-        return trainingDao.deleteTrainingPlayer(user, training);
+        if (trainingDao.deleteTrainingPlayer(user, training) != null) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

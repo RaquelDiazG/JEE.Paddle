@@ -7,6 +7,6 @@ public interface TrainingDaoExtended {
 
     public Training registerTrainingPlayer(User user, Training training);
 
-    public boolean deleteTrainingPlayer(User user, Training training);
+    public Training deleteTrainingPlayer(User user, Training training);
 
 }

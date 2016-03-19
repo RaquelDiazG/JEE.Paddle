@@ -77,26 +77,25 @@ public class TrainingDaoITest {
         assertEquals(1, trainingDao.findOne(2).getUserList().size());
     }
 
-    //
-    // @Test
-    // public void testDeleteUserInTraining() {
-    // // Register user in training
-    // User u0 = userDao.findByUsernameOrEmail("u0");
-    // Training training = trainingDao.findAll().get(0);
-    // trainingDao.registerUserInTraining(u0, training);
-    // // Remove user from training
-    // assertEquals(1, trainingDao.findAll().get(0).getUserList().size());
-    // trainingDao.deleteUserInTraining(u0, training);
-    // assertEquals(0, trainingDao.findAll().get(0).getUserList().size());
-    // }
-    //
+    @Test
+    public void testDeleteUserInTraining() {
+        // borrar el usuario u3 del cuarto entrenamiento
+        assertEquals(1, trainingDao.findOne(4).getUserList().size());
+        User user = userDao.findByUsernameOrEmail("u3");
+        Training training = trainingDao.findOne(4);
+        System.out.println(user);
+        System.out.println(training);
+        trainingDao.deleteTrainingPlayer(user, training);
+        assertEquals(0, trainingDao.findOne(4).getUserList().size());
+    }
+
     @Test
     public void testDeleteTraining() {
         // borramos el tercer entrenamiento (no contiene usuarios)
-        assertEquals(3, trainingDao.findAll().size());
-        Training training = trainingDao.findAll().get(2);
+        assertEquals(4, trainingDao.findAll().size());
+        Training training = trainingDao.findOne(3);
         trainingDao.delete(training);
-        assertEquals(2, trainingDao.findAll().size());
+        assertEquals(3, trainingDao.findAll().size());
     }
 
 }
