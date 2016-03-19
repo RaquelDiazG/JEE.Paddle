@@ -68,7 +68,7 @@ public class DaosService {
          * 
          * 4 reservas-> rc1u2,rc2u3,rc3u4,rc4u5
          * 
-         * 2 entrenamientos -> trc1,trc2
+         * 3 entrenamientos -> trc1,trc2,trc3
          */
 
         map = new HashMap<>();
@@ -109,11 +109,16 @@ public class DaosService {
         Training training1 = new Training(startDate, finishDate, courtDao.findOne(1));
         trainingDao.save(training1);
         map.put("tr" + "c" + training1.getCourt(), training1);
-        startDate = new GregorianCalendar(2015, Calendar.MARCH, 15, 10, 00, 00);
-        finishDate = new GregorianCalendar(2015, Calendar.MARCH, 30, 10, 00, 00);
+        startDate = new GregorianCalendar(2015, Calendar.FEBRUARY, 15, 10, 00, 00);
+        finishDate = new GregorianCalendar(2015, Calendar.FEBRUARY, 30, 10, 00, 00);
         Training training2 = new Training(startDate, finishDate, courtDao.findOne(2));
         trainingDao.save(training2);
         map.put("tr" + "c" + training2.getCourt(), training2);
+        startDate = new GregorianCalendar(2015, Calendar.MARCH, 15, 10, 00, 00);
+        finishDate = new GregorianCalendar(2015, Calendar.MARCH, 30, 10, 00, 00);
+        Training training3 = new Training(startDate, finishDate, courtDao.findOne(2));
+        trainingDao.save(training3);
+        map.put("tr" + "c" + training3.getCourt(), training3);
 
     }
 

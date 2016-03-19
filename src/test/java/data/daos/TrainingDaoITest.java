@@ -16,8 +16,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import config.PersistenceConfig;
 import config.TestsPersistenceConfig;
+import data.entities.Authorization;
 import data.entities.Court;
+import data.entities.Role;
 import data.entities.Training;
+import data.entities.User;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {PersistenceConfig.class, TestsPersistenceConfig.class})
@@ -61,16 +64,19 @@ public class TrainingDaoITest {
         assertEquals(1, trainingDao.findTrainingsByCourt(court).size());
     }
 
-    // @Test
-    // public void testRegisterUserInTraining() {
-    // User u1 = new User("user1", "user1@gmail.com", "p", Calendar.getInstance());
-    // userDao.save(u1);
-    // authorizationDao.save(new Authorization(u1, Role.PLAYER));
-    // assertEquals(0, trainingDao.findAll().get(0).getUserList().size());
-    // Training training = trainingDao.findAll().get(0);
-    // trainingDao.registerUserInTraining(u1, training);
-    // assertEquals(1, trainingDao.findAll().get(0).getUserList().size());
-    // }
+    @Test
+    public void testRegisterUserInTraining() {
+        // crear usuario
+        User newUser = new User("newUser", "newUser@gmail.com", "p", Calendar.getInstance());
+        userDao.save(newUser);
+        authorizationDao.save(new Authorization(newUser, Role.PLAYER));
+        // registrar usuario en entrenamiento
+        Training training = trainingDao.findOne(2);
+        assertEquals(0, training.getUserList().size());
+        trainingDao.registerTrainingPlayer(newUser, training);
+        assertEquals(1, trainingDao.findOne(2).getUserList().size());
+    }
+
     //
     // @Test
     // public void testDeleteUserInTraining() {
@@ -86,10 +92,11 @@ public class TrainingDaoITest {
     //
     @Test
     public void testDeleteTraining() {
-        assertEquals(2, trainingDao.findAll().size());
-        Training training = trainingDao.findAll().get(1);
+        // borramos el tercer entrenamiento (no contiene usuarios)
+        assertEquals(3, trainingDao.findAll().size());
+        Training training = trainingDao.findAll().get(2);
         trainingDao.delete(training);
-        assertEquals(1, trainingDao.findAll().size());
+        assertEquals(2, trainingDao.findAll().size());
     }
 
 }
