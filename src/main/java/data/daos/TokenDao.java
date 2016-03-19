@@ -9,4 +9,5 @@ public interface TokenDao extends JpaRepository<Token, Integer>, TokenDaoExtende
 
     Token findByUser(User user);
 
+    Token findByValue(String value);
 }
