@@ -9,4 +9,6 @@ public interface TrainingDaoExtended {
 
     public Training deleteTrainingPlayer(User user, Training training);
 
+    public Training createTraining(Training training);
+
 }

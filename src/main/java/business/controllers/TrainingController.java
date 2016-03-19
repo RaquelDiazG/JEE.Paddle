@@ -46,11 +46,7 @@ public class TrainingController {
 
     public boolean createTraining(Calendar startDate, Calendar finishDate, Court court) {
         Training training = trainingDao.findByStartDateAndFinishDateAndCourt(startDate, finishDate, court);
-        if (training == null) {// no existe
-            // guardar el entrenamiento
-            trainingDao.save(new Training(startDate, finishDate, court));
-            // generar reservas
-
+        if (trainingDao.createTraining(training) != null) {
             return true;
         } else {
             return false;

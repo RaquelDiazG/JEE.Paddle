@@ -39,6 +39,9 @@ public class TrainingDaoITest {
     private CourtDao courtDao;
 
     @Autowired
+    private ReserveDao reserveDao;
+
+    @Autowired
     private DaosService daosService;
 
     private SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
@@ -80,13 +83,13 @@ public class TrainingDaoITest {
     @Test
     public void testDeleteTrainingPlayer() {
         // borrar el usuario u3 del cuarto entrenamiento
-        assertEquals(1, trainingDao.findOne(4).getUserList().size());
+        assertEquals(2, trainingDao.findOne(4).getUserList().size());
         User user = userDao.findByUsernameOrEmail("u3");
         Training training = trainingDao.findOne(4);
         System.out.println(user);
         System.out.println(training);
         trainingDao.deleteTrainingPlayer(user, training);
-        assertEquals(0, trainingDao.findOne(4).getUserList().size());
+        assertEquals(1, trainingDao.findOne(4).getUserList().size());
     }
 
     @Test
@@ -96,6 +99,18 @@ public class TrainingDaoITest {
         Training training = trainingDao.findOne(3);
         trainingDao.delete(training);
         assertEquals(3, trainingDao.findAll().size());
+    }
+
+    @Test
+    public void testCreateTraining() {
+        assertEquals(3, trainingDao.findAll().size());
+        assertEquals(4, reserveDao.findAll().size());
+        Calendar startDate = new GregorianCalendar(2016, Calendar.JULY, 17, 12, 00, 00);
+        Calendar finishDate = new GregorianCalendar(2016, Calendar.JULY, 31, 12, 00, 00);
+        Court court = (Court) daosService.getMap().get("c2");
+        trainingDao.createTraining(new Training(startDate, finishDate, court));
+        assertEquals(4, trainingDao.findAll().size());
+        assertEquals(7, reserveDao.findAll().size());
     }
 
 }
