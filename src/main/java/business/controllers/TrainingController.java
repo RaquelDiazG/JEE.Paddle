@@ -36,17 +36,17 @@ public class TrainingController {
         this.courtDao = courtDao;
     }
 
-    public boolean createTraining(Calendar startDate, Court court) {
-        if (trainingDao.findTrainingsByStartDate(startDate).isEmpty()) {
-            trainingDao.save(new Training(startDate, court));
+    public boolean createTraining(Calendar startDate, Calendar finishDate, Court court) {
+        Training training = trainingDao.findByStartDateAndFinishDateAndCourt(startDate, finishDate, court);
+        if (training == null) {// no existe
+            // guardar el entrenamiento
+            trainingDao.save(new Training(startDate, finishDate, court));
+            // generar reservas
+
             return true;
         } else {
             return false;
         }
-    }
-
-    public List<Training> createOneTrainingPerWeek(Calendar startDate, Calendar finishDate, Court court) {
-        return trainingDao.createOneTrainingPerWeek(startDate, finishDate, court);
     }
 
     public List<TrainingWrapper> showTrainings() {
