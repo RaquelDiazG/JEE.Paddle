@@ -1,5 +1,6 @@
 package data.entities;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -33,18 +34,17 @@ public class Training {
     public Training() {
     }
 
-    public Training(Calendar startDate, Court court) {
+    public Training(Calendar startDate, Calendar finishDate, Court court) {
         this.startDate = startDate;
-        this.finishDate = startDate;
-        finishDate.add(Calendar.HOUR_OF_DAY, 1);
+        this.finishDate = finishDate;
         this.court = court;
         this.userList = new ArrayList<>();
     }
 
-    public Training(Calendar startDate, Court court, List<User> userList) {
+    public Training(Calendar startDate, Calendar finishDate, Court court, List<User> userList) {
         this.startDate = startDate;
         this.finishDate = startDate;
-        finishDate.add(Calendar.HOUR_OF_DAY, 1);
+        this.finishDate = finishDate;
         this.court = court;
         this.userList = userList;
     }
@@ -89,10 +89,19 @@ public class Training {
         this.userList = userList;
     }
 
+    public boolean addUser(User user) {
+        return this.userList.add(user);
+    }
+
+    public boolean removeUser(User user) {
+        return this.userList.remove(user);
+    }
+
     @Override
     public String toString() {
-        return "Training [id=" + id + ", startDate=" + startDate + ", finishDate=" + finishDate + ", court=" + court + ", userList="
-                + userList + "]";
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+        return "Training [id=" + id + ", startDate=" + sdf.format(startDate.getTime()) + ", finishDate=" + sdf.format(finishDate.getTime())
+                + ", court=" + court + ", userList=" + userList + "]";
     }
 
     @Override
