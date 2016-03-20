@@ -8,7 +8,10 @@
 </head>
 
 <body>
+
     HOME
 
+    <p><a href="<c:url value='/court-list'/>">Courts</a></p>
+     
 </body>
 </html>
