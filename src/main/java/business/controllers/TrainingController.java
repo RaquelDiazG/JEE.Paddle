@@ -24,8 +24,6 @@ public class TrainingController {
 
     private CourtDao courtDao;
 
-    private static final int MAX_USERS_IN_TRAINING = 4;
-
     @Autowired
     public void setTrainingDao(TrainingDao trainingDao) {
         this.trainingDao = trainingDao;
@@ -58,10 +56,8 @@ public class TrainingController {
     }
 
     public boolean registerTrainingPlayer(User user, Training training) {
-        // solo puede haber como maximo 4 alumnos por clase
-        if (training.getUserList().size() < MAX_USERS_IN_TRAINING) {
-            Training register = trainingDao.registerTrainingPlayer(user, training);
-            return register != null;
+        if (trainingDao.registerTrainingPlayer(user, training) != null) {
+            return true;
         } else {
             return false;
         }

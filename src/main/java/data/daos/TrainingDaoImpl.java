@@ -22,8 +22,11 @@ public class TrainingDaoImpl implements TrainingDaoExtended {
 
     @Override
     public Training registerTrainingPlayer(User user, Training training) {
-        training.addUser(user);
-        return trainingDao.save(training);
+        if (training.addUser(user)) {
+            return trainingDao.save(training);
+        } else {
+            return null;
+        }
     }
 
     @Override

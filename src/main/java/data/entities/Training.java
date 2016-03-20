@@ -31,6 +31,8 @@ public class Training {
     @ManyToMany(fetch = FetchType.EAGER)
     private List<User> userList;
 
+    private static final int MAX_USERS_IN_TRAINING = 4;
+
     public Training() {
     }
 
@@ -90,7 +92,12 @@ public class Training {
     }
 
     public boolean addUser(User user) {
-        return this.userList.add(user);
+        // solo puede haber como maximo 4 alumnos por clase
+        if (this.userList.size() < MAX_USERS_IN_TRAINING && !this.userList.contains(user)) {
+            return this.userList.add(user);
+        } else {
+            return false;
+        }
     }
 
     public boolean removeUser(User user) {

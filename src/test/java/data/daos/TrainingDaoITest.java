@@ -16,9 +16,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import config.PersistenceConfig;
 import config.TestsPersistenceConfig;
-import data.entities.Authorization;
 import data.entities.Court;
-import data.entities.Role;
 import data.entities.Training;
 import data.entities.User;
 
@@ -69,15 +67,25 @@ public class TrainingDaoITest {
 
     @Test
     public void testRegisterTrainingPlayer() {
-        // crear usuario
-        User newUser = new User("newUser", "newUser@gmail.com", "p", Calendar.getInstance());
-        userDao.save(newUser);
-        authorizationDao.save(new Authorization(newUser, Role.PLAYER));
-        // registrar usuario en entrenamiento
+        // entrenamiento con menos de 4 alumnos
+        User u1 = (User) daosService.getMap().get("u1");
         Training training = trainingDao.findOne(2);
         assertEquals(0, training.getUserList().size());
-        trainingDao.registerTrainingPlayer(newUser, training);
+        trainingDao.registerTrainingPlayer(u1, training);
         assertEquals(1, trainingDao.findOne(2).getUserList().size());
+        // entrenamiento con más de 4 alumnos
+        // User u2 = (User) daosService.getMap().get("u2");
+        // trainingDao.registerTrainingPlayer(u2, training);
+        // assertEquals(2, trainingDao.findOne(2).getUserList().size());
+        // User u3 = (User) daosService.getMap().get("u3");
+        // trainingDao.registerTrainingPlayer(u3, training);
+        // assertEquals(3, trainingDao.findOne(2).getUserList().size());
+        // User u4 = (User) daosService.getMap().get("u4");
+        // trainingDao.registerTrainingPlayer(u4, training);
+        // assertEquals(4, trainingDao.findOne(2).getUserList().size());
+        // User u5 = (User) daosService.getMap().get("u5");
+        // trainingDao.registerTrainingPlayer(u5, training);
+        // assertEquals(4, trainingDao.findOne(2).getUserList().size());
     }
 
     @Test
