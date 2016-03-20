@@ -47,6 +47,10 @@ public class TrainingDaoImpl implements TrainingDaoExtended {
         Calendar date = startDate;
         do {
             reserve = new Reserve(court, date);
+            Reserve reserveDB = reserveDao.findByCourtAndDate(court, date);
+            if (reserveDB != null) { // si existe la reserva, la borramos
+                reserveDao.delete(reserveDB);
+            }
             reserveDao.save(reserve);
             date.add(Calendar.DAY_OF_YEAR, 7); // sumamos 7 días
         } while (date.getTimeInMillis() <= finishDate.getTimeInMillis());

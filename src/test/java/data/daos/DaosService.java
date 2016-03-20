@@ -56,15 +56,11 @@ public class DaosService {
         /*
          * DATOS GENERADOS EN BBDD
          * 
-         * 4 usuarios -> u0,u1,u2,u3;
+         * 12 usuarios -> u0,u1,u2,u3,u4,u5,u6,u7,u8,u9,u10,u11
          * 
          * 4 tokens -> tu0,tu1,tu2,tu3
          * 
-         * 4 usuarios -> u10,u11,u12,u13
-         * 
          * 4 tokens expirados -> texpu0,texpu1,texpu2,texpu3
-         * 
-         * 4 usuarios -> u4,u5,u6,u7
          * 
          * 4 pistas -> c1,c2,c3,c4
          * 
