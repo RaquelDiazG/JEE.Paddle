@@ -12,6 +12,8 @@
     HOME
 
     <p><a href="<c:url value='/court-list'/>">Courts</a></p>
+    
+    <p><a href="<c:url value='/user-list'/>">Users</a></p>
      
 </body>
 </html>
