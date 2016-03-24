@@ -118,7 +118,8 @@ public class TrainingDaoITest {
         Calendar startDate = new GregorianCalendar(2016, Calendar.JULY, 17, 12, 00, 00);
         Calendar finishDate = new GregorianCalendar(2016, Calendar.JULY, 31, 12, 00, 00);
         Court court = (Court) daosService.getMap().get("c2");
-        trainingDao.createTraining(new Training(startDate, finishDate, court));
+        User trainer = (User) daosService.getMap().get("u0");
+        trainingDao.createTraining(new Training(startDate, finishDate, court, trainer));
         assertEquals(4, trainingDao.findAll().size());
         assertEquals(7, reserveDao.findAll().size());
         // cuando existe una reserva
@@ -141,7 +142,7 @@ public class TrainingDaoITest {
         System.out.println(court2);
         System.out.println(reserve);
         assertNotNull(reserveDao.findByCourtAndDate(court2, start));
-        trainingDao.createTraining(new Training(start, finish, court2));
+        trainingDao.createTraining(new Training(start, finish, court2, trainer));
         assertNull(reserveDao.findByCourtAndDate(court2, reserve.getDate()));
     }
 

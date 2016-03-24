@@ -117,25 +117,25 @@ public class DaosService {
         // entrenamiento para consultar
         startDate = new GregorianCalendar(2015, Calendar.JANUARY, 15, 10, 00, 00);
         finishDate = new GregorianCalendar(2015, Calendar.JANUARY, 30, 10, 00, 00);
-        Training training1 = new Training(startDate, finishDate, courtDao.findOne(1));
+        Training training1 = new Training(startDate, finishDate, courtDao.findOne(1), users[0]);
         trainingDao.save(training1);
         // entrenamiento para registrar un usuario
         map.put("tr" + "c" + training1.getCourt(), training1);
         startDate = new GregorianCalendar(2015, Calendar.FEBRUARY, 15, 10, 00, 00);
         finishDate = new GregorianCalendar(2015, Calendar.FEBRUARY, 30, 10, 00, 00);
-        Training training2 = new Training(startDate, finishDate, courtDao.findOne(2));
+        Training training2 = new Training(startDate, finishDate, courtDao.findOne(2), users[0]);
         trainingDao.save(training2);
         map.put("tr" + "c" + training2.getCourt(), training2);
         // entrenamiento para borrar
         startDate = new GregorianCalendar(2015, Calendar.MARCH, 15, 10, 00, 00);
         finishDate = new GregorianCalendar(2015, Calendar.MARCH, 30, 10, 00, 00);
-        Training training3 = new Training(startDate, finishDate, courtDao.findOne(3));
+        Training training3 = new Training(startDate, finishDate, courtDao.findOne(3), users[0]);
         trainingDao.save(training3);
         map.put("tr" + "c" + training3.getCourt(), training3);
         // entrenamiento con usuario u3 para borrar usuario
         startDate = new GregorianCalendar(2015, Calendar.APRIL, 15, 10, 00, 00);
         finishDate = new GregorianCalendar(2015, Calendar.APRIL, 30, 10, 00, 00);
-        Training training4 = new Training(startDate, finishDate, courtDao.findOne(4));
+        Training training4 = new Training(startDate, finishDate, courtDao.findOne(4), users[0]);
         training4.addUser((User) map.get("u2"));
         training4.addUser((User) map.get("u3"));
         trainingDao.save(training4);

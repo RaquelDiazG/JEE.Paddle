@@ -28,6 +28,10 @@ public class Training {
     @JoinColumn
     private Court court;
 
+    @ManyToOne
+    @JoinColumn
+    private User trainer;
+
     @ManyToMany(fetch = FetchType.EAGER)
     private List<User> userList;
 
@@ -36,18 +40,20 @@ public class Training {
     public Training() {
     }
 
-    public Training(Calendar startDate, Calendar finishDate, Court court) {
+    public Training(Calendar startDate, Calendar finishDate, Court court, User trainer) {
         this.startDate = startDate;
         this.finishDate = finishDate;
         this.court = court;
+        this.trainer = trainer;
         this.userList = new ArrayList<>();
     }
 
-    public Training(Calendar startDate, Calendar finishDate, Court court, List<User> userList) {
+    public Training(Calendar startDate, Calendar finishDate, Court court, User trainer, List<User> userList) {
         this.startDate = startDate;
         this.finishDate = startDate;
         this.finishDate = finishDate;
         this.court = court;
+        this.trainer = trainer;
         this.userList = userList;
     }
 
@@ -83,6 +89,14 @@ public class Training {
         this.court = court;
     }
 
+    public User getTrainer() {
+        return trainer;
+    }
+
+    public void setTrainer(User trainer) {
+        this.trainer = trainer;
+    }
+
     public List<User> getUserList() {
         return userList;
     }
@@ -108,7 +122,7 @@ public class Training {
     public String toString() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
         return "Training [id=" + id + ", startDate=" + sdf.format(startDate.getTime()) + ", finishDate=" + sdf.format(finishDate.getTime())
-                + ", court=" + court + ", userList=" + userList + "]";
+                + ", court=" + court + ", trainer=" + trainer + ", userList=" + userList + "]";
     }
 
     @Override

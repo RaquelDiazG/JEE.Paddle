@@ -42,11 +42,12 @@ public class TrainingDaoImpl implements TrainingDaoExtended {
         // generar reservas
         Reserve reserve;
         Court court = training.getCourt();
+        User trainer = training.getTrainer();
         Calendar startDate = training.getStartDate();
         Calendar finishDate = training.getFinishDate();
         Calendar date = startDate;
         do {
-            reserve = new Reserve(court, date);
+            reserve = new Reserve(court, trainer, date);
             Reserve reserveDB = reserveDao.findByCourtAndDate(court, date);
             if (reserveDB != null) { // si existe la reserva, la borramos
                 reserveDao.delete(reserveDB);
