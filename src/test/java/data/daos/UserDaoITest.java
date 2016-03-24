@@ -47,7 +47,7 @@ public class UserDaoITest {
         // not exist
         assertNull(userDao.findByTokenValueValid("kk"));
         // not valid
-        Token t2 = (Token) daosService.getMap().get("texpu10");
+        Token t2 = (Token) daosService.getMap().get("texpu15");
         System.out.println(t2);
         System.out.println(daosService.getMap());
         assertNull(userDao.findByTokenValueValid(t2.getValue()));

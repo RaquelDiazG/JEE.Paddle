@@ -56,7 +56,7 @@ public class DaosService {
         /*
          * DATOS GENERADOS EN BBDD
          * 
-         * 12 usuarios -> u0,u1,u2,u3,u4,u5,u6,u7,u8,u9,u10,u11
+         * 12 usuarios -> u0,u1,u2,u3,u4,u5,u6,u7,u8,u9,u10,u11,u12,u13,u14,u15
          * 
          * 4 tokens -> tu0,tu1,tu2,tu3
          * 
@@ -93,7 +93,9 @@ public class DaosService {
             map.put(user.getUsername(), user);
         }
         System.out.println("ADD USERS - " + map.keySet());
-        List<Token> tokens = this.createExpiredTokens(users3);
+        User[] users4 = this.createPlayers(12, 4);
+        System.out.println("ADD USERS - " + map.keySet());
+        List<Token> tokens = this.createExpiredTokens(users4);
         for (Token token : tokens) {
             map.put("texp" + token.getUser().getUsername(), token);
         }
