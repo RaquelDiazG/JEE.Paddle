@@ -1,7 +1,6 @@
 package business.controllers;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -12,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import business.wrapper.TrainingWrapper;
 import data.daos.CourtDao;
 import data.daos.TrainingDao;
+import data.daos.UserDao;
 import data.entities.Court;
 import data.entities.Training;
 import data.entities.User;
@@ -23,6 +23,8 @@ public class TrainingController {
     private TrainingDao trainingDao;
 
     private CourtDao courtDao;
+
+    private UserDao userDao;
 
     @Autowired
     public void setTrainingDao(TrainingDao trainingDao) {
@@ -42,8 +44,10 @@ public class TrainingController {
         return trainings;
     }
 
-    public boolean createTraining(Calendar startDate, Calendar finishDate, Court court) {
-        Training training = trainingDao.findByStartDateAndFinishDateAndCourt(startDate, finishDate, court);
+    public boolean createTraining(TrainingWrapper trainingWrapper) {
+        Court court = courtDao.findOne(trainingWrapper.getCourt().getCourtId());
+        Training training = trainingDao.findByStartDateAndFinishDateAndCourt(trainingWrapper.getStartDate(),
+                trainingWrapper.getFinishDate(), court);
         if (trainingDao.createTraining(training) != null) {
             return true;
         } else {
@@ -51,11 +55,19 @@ public class TrainingController {
         }
     }
 
-    public void deleteTraining(Training training) {
-        trainingDao.delete(training);
+    public boolean deleteTraining(int id) {
+        Training training = trainingDao.findOne(id);
+        if (training != null) {
+            trainingDao.delete(training);
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    public boolean registerTrainingPlayer(User user, Training training) {
+    public boolean registerTrainingPlayer(int userId, int trainingId) {
+        User user = userDao.findOne(userId);
+        Training training = trainingDao.findOne(trainingId);
         if (trainingDao.registerTrainingPlayer(user, training) != null) {
             return true;
         } else {
@@ -63,7 +75,9 @@ public class TrainingController {
         }
     }
 
-    public boolean deleteTrainingPlayer(User user, Training training) {
+    public boolean deleteTrainingPlayer(int userId, int trainingId) {
+        User user = userDao.findOne(userId);
+        Training training = trainingDao.findOne(trainingId);
         if (trainingDao.deleteTrainingPlayer(user, training) != null) {
             return true;
         } else {

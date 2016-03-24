@@ -1,13 +1,12 @@
 package business.api;
 
-import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import business.controllers.TrainingController;
@@ -28,28 +27,26 @@ public class TrainingResource {
 
     @RequestMapping(method = RequestMethod.GET)
     public List<TrainingWrapper> showTrainings() {
-        // TODO
-        return null;
+        return trainingController.showTrainings();
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public void createTraining(@RequestParam(required = true) int id, @RequestParam(required = true) Calendar startDate,
-            Calendar finishDate) {
-        // TODO
+    public boolean createTraining(@RequestBody TrainingWrapper trainingWrapper) {
+        return trainingController.createTraining(trainingWrapper);
     }
 
     @RequestMapping(value = Uris.ID, method = RequestMethod.DELETE)
-    public void deleteTraining(@PathVariable int trainingId) {
-        // TODO
+    public boolean deleteTraining(@PathVariable int id) {
+        return trainingController.deleteTraining(id);
     }
 
     @RequestMapping(value = Uris.ID + Uris.USERS + Uris.ID, method = RequestMethod.POST)
-    public void registerTrainingPlayer(@PathVariable int trainingId, @PathVariable int userId) {
-        // TODO
+    public boolean registerTrainingPlayer(@PathVariable int trainingId, @PathVariable int userId) {
+        return trainingController.registerTrainingPlayer(userId, trainingId);
     }
 
     @RequestMapping(value = Uris.ID + Uris.USERS + Uris.ID, method = RequestMethod.DELETE)
-    public void deleteTrainingPlayer(@PathVariable int trainingId, @PathVariable int userId) {
-        // TODO
+    public boolean deleteTrainingPlayer(@PathVariable int trainingId, @PathVariable int userId) {
+        return trainingController.deleteTrainingPlayer(userId, trainingId);
     }
 }
