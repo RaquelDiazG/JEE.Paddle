@@ -58,7 +58,7 @@ public class TrainingController {
     public boolean deleteTraining(int id) {
         Training training = trainingDao.findOne(id);
         if (training != null) {
-            trainingDao.delete(training);
+            trainingDao.deleteTraining(training);
             return true;
         } else {
             return false;

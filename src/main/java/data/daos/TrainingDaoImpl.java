@@ -58,4 +58,10 @@ public class TrainingDaoImpl implements TrainingDaoExtended {
         return insert;
     }
 
+    @Override
+    public void deleteTraining(Training training) {
+        training.removeAllUsers();
+        trainingDao.delete(training);
+    }
+
 }

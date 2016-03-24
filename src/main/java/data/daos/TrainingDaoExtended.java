@@ -11,4 +11,5 @@ public interface TrainingDaoExtended {
 
     public Training createTraining(Training training);
 
+    public void deleteTraining(Training training);
 }

@@ -118,6 +118,10 @@ public class Training {
         return this.userList.remove(user);
     }
 
+    public void removeAllUsers() {
+        this.userList.clear();
+    }
+
     @Override
     public String toString() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
