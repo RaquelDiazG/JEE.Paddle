@@ -32,6 +32,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(final String usernameOrEmailOrTokenValue) throws UsernameNotFoundException {
+        // User user = userDao.findByTokenValue(usernameOrEmailOrTokenValue);
         User user = userDao.findByTokenValueValid(usernameOrEmailOrTokenValue);
         if (user != null) {
             List<Role> roleList = authorizationDao.findRoleByUser(user);
@@ -55,7 +56,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         for (Role role : roles) {
             authorities.add(new SimpleGrantedAuthority(role.roleName()));
         }
-        return new org.springframework.security.core.userdetails.User(username, password, enabled, accountNonExpired,
-                credentialsNonExpired, accountNonLocked, authorities);
+        return new org.springframework.security.core.userdetails.User(username, password, enabled, accountNonExpired, credentialsNonExpired,
+                accountNonLocked, authorities);
     }
 }
