@@ -7,6 +7,8 @@ import data.entities.User;
 
 public class TrainingWrapper {
 
+    private int id;
+
     private Calendar startDate;
 
     private Calendar finishDate;
@@ -15,7 +17,16 @@ public class TrainingWrapper {
 
     private UserWrapper trainer;
 
-    public TrainingWrapper(Calendar startDate, Calendar finishDate, CourtState court, UserWrapper trainer) {
+    public TrainingWrapper(int id) {
+        this.id = id;
+        this.startDate = null;
+        this.finishDate = null;
+        this.court = null;
+        this.trainer = null;
+    }
+
+    public TrainingWrapper(int id, Calendar startDate, Calendar finishDate, CourtState court, UserWrapper trainer) {
+        this.id = id;
         this.startDate = startDate;
         this.finishDate = finishDate;
         this.court = court;
@@ -23,12 +34,21 @@ public class TrainingWrapper {
     }
 
     public TrainingWrapper(Training training) {
+        this.id = training.getId();
         this.startDate = training.getStartDate();
         this.finishDate = training.getFinishDate();
         CourtState court = new CourtState(training.getCourt());
         this.court = court;
         User trainer = training.getTrainer();
         this.trainer = new UserWrapper(trainer.getUsername(), trainer.getEmail(), trainer.getPassword(), trainer.getBirthDate());
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Calendar getStartDate() {
