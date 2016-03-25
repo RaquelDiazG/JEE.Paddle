@@ -38,4 +38,8 @@ public class UserController {
             return false;
         }
     }
+
+    public boolean existUser(int userId) {
+        return (userDao.findOne(userId) != null);
+    }
 }

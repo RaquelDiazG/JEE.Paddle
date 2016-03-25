@@ -9,7 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import business.api.exceptions.AlreadyExistTrainingIdException;
+import business.api.exceptions.AlreadyExistUserIdInTrainingIdException;
+import business.api.exceptions.NotFoundTrainingIdException;
+import business.api.exceptions.NotFoundUserIdException;
 import business.controllers.TrainingController;
+import business.controllers.UserController;
 import business.wrapper.TrainingWrapper;
 
 @RestController
@@ -18,12 +23,17 @@ public class TrainingResource {
 
     private TrainingController trainingController;
 
+    private UserController userController;
+
     @Autowired
-    public void setReserveController(TrainingController trainingController) {
+    public void setTrainingController(TrainingController trainingController) {
         this.trainingController = trainingController;
     }
 
-    // OJO! HAY QUE GENERAR EXCEPCIONES
+    @Autowired
+    public void setUserController(UserController userController) {
+        this.userController = userController;
+    }
 
     @RequestMapping(method = RequestMethod.GET)
     public List<TrainingWrapper> showTrainings() {
@@ -31,22 +41,44 @@ public class TrainingResource {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public boolean createTraining(@RequestBody TrainingWrapper trainingWrapper) {
-        return trainingController.createTraining(trainingWrapper);
+    public void createTraining(@RequestBody TrainingWrapper trainingWrapper) throws AlreadyExistTrainingIdException {
+        if (!trainingController.createTraining(trainingWrapper)) {
+            throw new AlreadyExistTrainingIdException();
+        }
     }
 
     @RequestMapping(value = Uris.ID, method = RequestMethod.DELETE)
-    public boolean deleteTraining(@PathVariable int id) {
-        return trainingController.deleteTraining(id);
+    public void deleteTraining(@PathVariable int id) throws NotFoundTrainingIdException {
+        if (!trainingController.deleteTraining(id)) {
+            throw new NotFoundTrainingIdException("id: " + id);
+        }
     }
 
     @RequestMapping(value = Uris.ID + Uris.USERS + Uris.ID, method = RequestMethod.POST)
-    public boolean registerTrainingPlayer(@PathVariable int trainingId, @PathVariable int userId) {
-        return trainingController.registerTrainingPlayer(userId, trainingId);
+    public void registerTrainingPlayer(@PathVariable int userId, @PathVariable int trainingId)
+            throws NotFoundTrainingIdException, NotFoundUserIdException, AlreadyExistUserIdInTrainingIdException {
+        if (!trainingController.existTraining(trainingId)) {
+            throw new NotFoundTrainingIdException("id: " + trainingId);
+        }
+        if (!userController.existUser(userId)) {
+            throw new NotFoundUserIdException("id: " + userId);
+        }
+        if (!trainingController.registerTrainingPlayer(userId, trainingId)) {
+            throw new AlreadyExistUserIdInTrainingIdException("idUser: " + userId, "idTraining: " + trainingId);
+        }
     }
 
     @RequestMapping(value = Uris.ID + Uris.USERS + Uris.ID, method = RequestMethod.DELETE)
-    public boolean deleteTrainingPlayer(@PathVariable int trainingId, @PathVariable int userId) {
-        return trainingController.deleteTrainingPlayer(userId, trainingId);
+    public void deleteTrainingPlayer(@PathVariable int userId, @PathVariable int trainingId)
+            throws NotFoundTrainingIdException, NotFoundUserIdException, AlreadyExistUserIdInTrainingIdException {
+        if (!trainingController.existTraining(trainingId)) {
+            throw new NotFoundTrainingIdException("id: " + trainingId);
+        }
+        if (!userController.existUser(userId)) {
+            throw new NotFoundUserIdException("id: " + userId);
+        }
+        if (!trainingController.deleteTrainingPlayer(userId, trainingId)) {
+            throw new AlreadyExistUserIdInTrainingIdException("idUser: " + userId, "idTraining: " + trainingId);
+        }
     }
 }

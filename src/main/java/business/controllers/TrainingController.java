@@ -85,4 +85,8 @@ public class TrainingController {
         }
     }
 
+    public boolean existTraining(int trainingId) {
+        return (trainingDao.findOne(trainingId) != null);
+    }
+
 }

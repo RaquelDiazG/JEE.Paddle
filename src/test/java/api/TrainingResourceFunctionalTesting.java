@@ -37,13 +37,31 @@ public class TrainingResourceFunctionalTesting {
     }
 
     @Test
+    public void testDeleteTrainingUnauthorized() {
+        String token = restService.loginTrainer();
+        // TODO
+    }
+
+    @Test
     public void testRegisterTrainingPlayer() {
         String token = restService.loginTrainer();
         // TODO
     }
 
     @Test
+    public void testRegisterTrainingPlayerUnauthorized() {
+        String token = restService.loginTrainer();
+        // TODO
+    }
+
+    @Test
     public void testDeleteTrainingPlayer() {
+        String token = restService.loginTrainer();
+        // TODO
+    }
+
+    @Test
+    public void testDeleteTrainingPlayerUnauthorized() {
         String token = restService.loginTrainer();
         // TODO
     }
