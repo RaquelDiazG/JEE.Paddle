@@ -3,6 +3,7 @@ package business.wrapper;
 import java.util.Calendar;
 
 import data.entities.Training;
+import data.entities.User;
 
 public class TrainingWrapper {
 
@@ -26,7 +27,8 @@ public class TrainingWrapper {
         this.finishDate = training.getFinishDate();
         CourtState court = new CourtState(training.getCourt());
         this.court = court;
-        this.trainer = new UserWrapper(training.getTrainer());
+        User trainer = training.getTrainer();
+        this.trainer = new UserWrapper(trainer.getUsername(), trainer.getEmail(), trainer.getPassword(), trainer.getBirthDate());
     }
 
     public Calendar getStartDate() {

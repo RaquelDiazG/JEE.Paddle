@@ -3,8 +3,6 @@ package business.wrapper;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import data.entities.User;
-
 public class UserWrapper {
 
     private String username;
@@ -23,13 +21,6 @@ public class UserWrapper {
         this.email = email;
         this.password = password;
         this.birthDate = birthDate;
-    }
-
-    public UserWrapper(User user) {
-        this.username = user.getUsername();
-        this.email = user.getEmail();
-        this.password = user.getPassword();
-        this.birthDate = user.getBirthDate();
     }
 
     public String getUsername() {
