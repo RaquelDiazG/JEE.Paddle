@@ -1,9 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
-<c:import url="head" />
+<jsp:include page="head.jsp" />
 
-    <a href="<c:url value="/home"/>">Home</a>
+   <jsp:include page="menu.jsp" />
+    
     <h1>Create a training</h1>
     <form:form action="create-training" modelAttribute="training">
         <p>Id:
@@ -29,4 +30,4 @@
         <p><input type="submit" value="Create"></p>
     </form:form>
 
-<c:import url="footer" />
+<jsp:include page="footer.jsp" />

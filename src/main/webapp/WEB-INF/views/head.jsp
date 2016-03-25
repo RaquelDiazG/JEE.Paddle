@@ -6,5 +6,6 @@
 <head>
 <meta charset="utf-8">
 <title>Spring MVC.</title>
+<style>.error { color: red;}</style>
 </head>
 <body>
