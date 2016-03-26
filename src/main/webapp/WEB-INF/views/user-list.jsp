@@ -25,7 +25,7 @@
 					<td>${user.username}</td>
 					<td>${user.email}</td>
 					<td>${user.password}</td>
-					<td><fmt:formatDate value="${user.birthDate.time}" type="date" dateStyle="short" /></td>
+					<td><fmt:formatDate value="${user.birthDate.time}" type="date" pattern="dd/MM/yyyy" /></td>
 					<td>
 						<c:forEach items="${authorizationList}" var="rol">
 						   <c:if test="${rol.user.username == user.username}">

@@ -22,8 +22,8 @@
 		<tbody>
 			<c:forEach items="${trainingList}" var="training">
 				<tr>
-					<td><fmt:formatDate value="${training.startDate.time}" type="date" dateStyle="short" /></td>
-					<td><fmt:formatDate value="${training.finishDate.time}" type="date" dateStyle="short" /></td>
+					<td><fmt:formatDate value="${training.startDate.time}" type="both" pattern="dd/MM/yyyy HH:mm:ss" /></td>
+					<td><fmt:formatDate value="${training.finishDate.time}" type="both" pattern="dd/MM/yyyy HH:mm:ss" /></td>
 					<td>${training.courtId}</td>
 					<td>${training.trainerId}</td>
 					<td><a href="<c:url value='/delete-training/${training.id}' />">delete</a></td>
