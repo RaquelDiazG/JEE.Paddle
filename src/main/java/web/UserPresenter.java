@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
 
+import business.controllers.AuthorizationController;
 import business.controllers.UserController;
 import business.wrapper.UserWrapper;
 
@@ -28,6 +29,9 @@ public class UserPresenter {
     @Autowired
     private UserController userController;
 
+    @Autowired
+    private AuthorizationController authorizationController;
+
     public UserPresenter() {
     }
 
@@ -35,6 +39,7 @@ public class UserPresenter {
     public ModelAndView listUsers(Model model) {
         ModelAndView modelAndView = new ModelAndView("user-list");
         modelAndView.addObject("userList", userController.showUsers());
+        modelAndView.addObject("authorizationList", authorizationController.showAuthorizations());
         return modelAndView;
     }
 

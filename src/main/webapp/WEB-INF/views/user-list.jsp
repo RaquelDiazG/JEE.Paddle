@@ -15,7 +15,8 @@
 				<th>Username</th>
 				<th>Email</th>
 				<th>Password</th>
-				<th>BirthDate</th>
+				<th>Birth Date</th>
+				<th>Rol</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -25,7 +26,13 @@
 					<td>${user.email}</td>
 					<td>${user.password}</td>
 					<td><fmt:formatDate value="${user.birthDate.time}" type="date" dateStyle="short" /></td>
-					<td><a href="<c:url value='/delete-user/${user.username}' />">delete</a></td>
+					<td>
+						<c:forEach items="${authorizationList}" var="rol">
+						   <c:if test="${rol.user.username == user.username}">
+						       ${rol.role}
+						   </c:if>
+						</c:forEach>
+					</td>
 				</tr>
 			</c:forEach>
 		</tbody>
