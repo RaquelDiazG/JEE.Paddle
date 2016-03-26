@@ -16,6 +16,7 @@
 				<th>Finish Date</th>
 				<th>Court</th>
 				<th>Trainer</th>
+				<th>Actions</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -23,9 +24,9 @@
 				<tr>
 					<td><fmt:formatDate value="${training.startDate.time}" type="date" dateStyle="short" /></td>
 					<td><fmt:formatDate value="${training.finishDate.time}" type="date" dateStyle="short" /></td>
-					<td>${training.court}</td>
-					<td>${training.trainer}</td>
-					<td><a href="<c:url value='/delete-training/${training}' />">delete</a></td>
+					<td>${training.court.courtId}</td>
+					<td>${training.trainer.username}</td>
+					<td><a href="<c:url value='/delete-training/${training.id}' />">delete</a></td>
 				</tr>
 			</c:forEach>
 		</tbody>

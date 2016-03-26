@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -58,4 +59,11 @@ public class TrainingPresenter {
         return "create-training";
     }
 
+    @RequestMapping(value = {"/delete-training/{id}"})
+    public ModelAndView deleteUser(@PathVariable int id, Model model) {
+        trainingController.deleteTraining(id);
+        ModelAndView modelAndView = new ModelAndView("training-list");
+        modelAndView.addObject("trainingList", trainingController.showTrainings());
+        return modelAndView;
+    }
 }
