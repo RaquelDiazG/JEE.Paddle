@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <jsp:include page="head.jsp" />
 
@@ -23,7 +24,7 @@
 					<td>${user.username}</td>
 					<td>${user.email}</td>
 					<td>${user.password}</td>
-					<td>${user.birthDate}</td>
+					<td><fmt:formatDate value="${user.birthDate.time}" type="date" dateStyle="short" /></td>
 					<td><a href="<c:url value='/delete-user/${user.username}' />">delete</a></td>
 				</tr>
 			</c:forEach>

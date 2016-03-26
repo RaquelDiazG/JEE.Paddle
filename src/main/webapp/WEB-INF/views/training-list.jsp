@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <jsp:include page="head.jsp" />
 
@@ -20,8 +21,8 @@
 		<tbody>
 			<c:forEach items="${trainingList}" var="training">
 				<tr>
-					<td>${training.startDate}</td>
-					<td>${training.finishDate}</td>
+					<td><fmt:formatDate value="${training.startDate.time}" type="date" dateStyle="short" /></td>
+					<td><fmt:formatDate value="${training.finishDate.time}" type="date" dateStyle="short" /></td>
 					<td>${training.court}</td>
 					<td>${training.trainer}</td>
 					<td><a href="<c:url value='/delete-training/${training}' />">delete</a></td>
