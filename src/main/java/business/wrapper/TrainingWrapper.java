@@ -5,46 +5,46 @@ import java.util.Calendar;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import data.entities.Training;
-import data.entities.User;
 
 public class TrainingWrapper {
 
     private int id;
 
-    @DateTimeFormat(pattern = "dd/MM/yyyy hh:mm:ss")
+    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private Calendar startDate;
 
-    @DateTimeFormat(pattern = "dd/MM/yyyy hh:mm:ss")
+    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private Calendar finishDate;
 
-    private CourtState court;
+    private int courtId;
 
-    private UserWrapper trainer;
+    private int trainerId;
+
+    public TrainingWrapper() {
+    }
 
     public TrainingWrapper(int id) {
         this.id = id;
         this.startDate = null;
         this.finishDate = null;
-        this.court = null;
-        this.trainer = null;
+        this.courtId = -1;
+        this.trainerId = -1;
     }
 
-    public TrainingWrapper(int id, Calendar startDate, Calendar finishDate, CourtState court, UserWrapper trainer) {
+    public TrainingWrapper(int id, Calendar startDate, Calendar finishDate, int courtId, int trainerId) {
         this.id = id;
         this.startDate = startDate;
         this.finishDate = finishDate;
-        this.court = court;
-        this.trainer = trainer;
+        this.courtId = courtId;
+        this.trainerId = trainerId;
     }
 
     public TrainingWrapper(Training training) {
         this.id = training.getId();
         this.startDate = training.getStartDate();
         this.finishDate = training.getFinishDate();
-        CourtState court = new CourtState(training.getCourt());
-        this.court = court;
-        User trainer = training.getTrainer();
-        this.trainer = new UserWrapper(trainer.getUsername(), trainer.getEmail(), trainer.getPassword(), trainer.getBirthDate());
+        this.courtId = training.getCourt().getId();
+        this.trainerId = training.getTrainer().getId();
     }
 
     public int getId() {
@@ -71,25 +71,26 @@ public class TrainingWrapper {
         this.finishDate = finishDate;
     }
 
-    public CourtState getCourt() {
-        return court;
+    public int getCourtId() {
+        return courtId;
     }
 
-    public void setCourt(CourtState court) {
-        this.court = court;
+    public void setCourtId(int courtId) {
+        this.courtId = courtId;
     }
 
-    public UserWrapper getTrainer() {
-        return trainer;
+    public int getTrainerId() {
+        return trainerId;
     }
 
-    public void setTrainer(UserWrapper trainer) {
-        this.trainer = trainer;
+    public void setTrainerId(int trainerId) {
+        this.trainerId = trainerId;
     }
 
     @Override
     public String toString() {
-        return "TrainingWrapper [startDate=" + startDate + ", finishDate=" + finishDate + ", court=" + court + ", trainer=" + trainer + "]";
+        return "TrainingWrapper [startDate=" + startDate + ", finishDate=" + finishDate + ", court=" + courtId + ", trainer=" + trainerId
+                + "]";
     }
 
 }

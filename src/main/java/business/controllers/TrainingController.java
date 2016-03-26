@@ -36,6 +36,11 @@ public class TrainingController {
         this.courtDao = courtDao;
     }
 
+    @Autowired
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
+    }
+
     public List<TrainingWrapper> showTrainings() {
         List<TrainingWrapper> trainings = new ArrayList<>();
         for (Training training : trainingDao.findAll()) {
@@ -45,10 +50,11 @@ public class TrainingController {
     }
 
     public boolean createTraining(TrainingWrapper trainingWrapper) {
-        Court court = courtDao.findOne(trainingWrapper.getCourt().getId());
-        Training training = trainingDao.findByStartDateAndFinishDateAndCourt(trainingWrapper.getStartDate(),
-                trainingWrapper.getFinishDate(), court);
-        if (trainingDao.createTraining(training) != null) {
+        Training training = trainingDao.findOne(trainingWrapper.getId());
+        if (training == null) {// no existe
+            Court court = courtDao.findOne(trainingWrapper.getCourtId());
+            User trainer = userDao.getOne(trainingWrapper.getTrainerId());
+            trainingDao.createTraining(new Training(trainingWrapper.getStartDate(), trainingWrapper.getFinishDate(), court, trainer));
             return true;
         } else {
             return false;

@@ -12,20 +12,20 @@
             <form:errors path="id" cssClass="error" />
         </p>
         <p>Start Date:
-            <form:input path="startDate" placeholder="dd/MM/yyyy hh:mm:ss" required="required" />
+            <form:input path="startDate" placeholder="dd/MM/yyyy HH:mm:ss" required="required" />
             <form:errors path="startDate" cssClass="error" />
         </p>
         <p>Finish Date:
-            <form:input path="finishDate" placeholder="dd/MM/yyyy hh:mm:ss" required="required" />
+            <form:input path="finishDate" placeholder="dd/MM/yyyy HH:mm:ss" required="required" />
             <form:errors path="finishDate" cssClass="error" />
         </p>
         <p>Court:
-            <form:input path="court" placeholder="Court" required="required" />
-            <form:errors path="court" cssClass="error" />
+            <form:input path="courtId" placeholder="Court Id" required="required" />
+            <form:errors path="courtId" cssClass="error" />
         </p>
         <p>Trainer:
-            <form:input path="trainer" placeholder="Trainer" required="required" />
-            <form:errors path="trainer" cssClass="error" />
+            <form:input path="trainerId" placeholder="Trainer Id" required="required" />
+            <form:errors path="trainerId" cssClass="error" />
         </p>
         <p><input type="submit" value="Create"></p>
     </form:form>
