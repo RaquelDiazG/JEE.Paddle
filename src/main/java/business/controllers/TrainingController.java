@@ -45,7 +45,7 @@ public class TrainingController {
     }
 
     public boolean createTraining(TrainingWrapper trainingWrapper) {
-        Court court = courtDao.findOne(trainingWrapper.getCourt().getCourtId());
+        Court court = courtDao.findOne(trainingWrapper.getCourt().getId());
         Training training = trainingDao.findByStartDateAndFinishDateAndCourt(trainingWrapper.getStartDate(),
                 trainingWrapper.getFinishDate(), court);
         if (trainingDao.createTraining(training) != null) {

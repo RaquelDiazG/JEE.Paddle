@@ -20,11 +20,11 @@ public class CourtController {
         this.courtDao = courtDao;
     }
 
-    public boolean createCourt(int courtId) {
-        if (courtDao.exists(courtId)) {
+    public boolean createCourt(int id) {
+        if (courtDao.exists(id)) {
             return false;
         } else {
-            courtDao.save(new Court(courtId));
+            courtDao.save(new Court(id));
             return true;
         }
     }
@@ -48,8 +48,8 @@ public class CourtController {
         return courtStateList;
     }
 
-    public boolean exist(int courtId) {
-        return courtDao.findOne(courtId) != null;
+    public boolean exist(int id) {
+        return courtDao.findOne(id) != null;
     }
 
 }

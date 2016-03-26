@@ -100,7 +100,7 @@ public class User {
 
     @Override
     public String toString() {
-        String date = new SimpleDateFormat("dd-MMM-yyyy ").format(birthDate.getTime());
+        String date = new SimpleDateFormat("dd-MMM-yyyy").format(birthDate.getTime());
         return "User [id=" + id + ", username=" + username + ", email=" + email + ", password=" + password + ", birthDate=" + date
                 + ", active=" + active + "]";
     }

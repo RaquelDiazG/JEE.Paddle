@@ -4,16 +4,16 @@ import data.entities.Court;
 
 public class CourtState {
 
-    private int courtId;
+    private int id;
 
     private boolean active;
 
     public CourtState() {
     }
 
-    public CourtState(int courtId, boolean active) {
+    public CourtState(int id, boolean active) {
         super();
-        this.courtId = courtId;
+        this.id = id;
         this.active = active;
     }
 
@@ -21,12 +21,12 @@ public class CourtState {
         this(court.getId(), court.isActive());
     }
 
-    public int getCourtId() {
-        return courtId;
+    public int getId() {
+        return id;
     }
 
-    public void setCourtId(int courtId) {
-        this.courtId = courtId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public boolean isActive() {
@@ -39,7 +39,7 @@ public class CourtState {
 
     @Override
     public String toString() {
-        return "CourtStateWrapper [courtId=" + courtId + ", active=" + active + "]";
+        return "CourtStateWrapper [id=" + id + ", active=" + active + "]";
     }
 
 }

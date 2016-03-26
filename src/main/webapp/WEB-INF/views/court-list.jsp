@@ -19,11 +19,11 @@
 		<tbody>
 			<c:forEach items="${courtList}" var="court">
 				<tr>
-					<td>${court.courtId}</td>
+					<td>${court.id}</td>
 					<td>${court.active}</td>
 					<td>
-						<a href="<c:url value='/activate-court/${court.courtId}' />">Activate</a> | 
-						<a href="<c:url value='/deactivate-court/${court.courtId}' />">Deactivate</a>
+						<a href="<c:url value='/activate-court/${court.id}' />">Activate</a> | 
+						<a href="<c:url value='/deactivate-court/${court.id}' />">Deactivate</a>
 					</td>
 				</tr>
 			</c:forEach>

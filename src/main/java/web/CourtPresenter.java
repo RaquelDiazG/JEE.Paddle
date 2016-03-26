@@ -50,11 +50,11 @@ public class CourtPresenter {
     @RequestMapping(value = "/create-court", method = RequestMethod.POST)
     public String createUserSubmit(@Valid CourtState court, BindingResult bindingResult, Model model) {
         if (!bindingResult.hasErrors()) {
-            if (courtController.createCourt(court.getCourtId())) {
+            if (courtController.createCourt(court.getId())) {
                 model.addAttribute("elemento", court);
                 return "operationOk";
             } else {
-                bindingResult.rejectValue("courtId", "error.courtId", "Court exists");
+                bindingResult.rejectValue("id", "error.id", "Court exists");
             }
         }
         return "create-court";
