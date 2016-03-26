@@ -2,6 +2,8 @@ package business.wrapper;
 
 import java.util.Calendar;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import data.entities.Training;
 import data.entities.User;
 
@@ -9,8 +11,10 @@ public class TrainingWrapper {
 
     private int id;
 
+    @DateTimeFormat(pattern = "dd/MM/yyyy hh:mm:ss")
     private Calendar startDate;
 
+    @DateTimeFormat(pattern = "dd/MM/yyyy hh:mm:ss")
     private Calendar finishDate;
 
     private CourtState court;

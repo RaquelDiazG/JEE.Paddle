@@ -21,7 +21,7 @@
             <form:errors path="password" cssClass="error" />
         </p>
          <p>BirthDate:
-            <form:input path="birthDate" placeholder="BirthDate"/>
+            <form:input path="birthDate" placeholder="dd/mm/yyyy" required="required" />
             <form:errors path="birthDate" cssClass="error" />
         </p>
         <p><input type="submit" value="Create"></p>

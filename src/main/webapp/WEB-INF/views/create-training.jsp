@@ -12,11 +12,11 @@
             <form:errors path="id" cssClass="error" />
         </p>
         <p>Start Date:
-            <form:input path="startDate" placeholder="Start Date" required="required" />
+            <form:input path="startDate" placeholder="dd/MM/yyyy hh:mm:ss" required="required" />
             <form:errors path="startDate" cssClass="error" />
         </p>
         <p>Finish Date:
-            <form:input path="finishDate" placeholder="Finish Date" required="required" />
+            <form:input path="finishDate" placeholder="dd/MM/yyyy hh:mm:ss" required="required" />
             <form:errors path="finishDate" cssClass="error" />
         </p>
         <p>Court:
