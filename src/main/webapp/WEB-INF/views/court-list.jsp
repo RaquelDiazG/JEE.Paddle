@@ -13,6 +13,7 @@
 			<tr>
 				<th>Id</th>
 				<th>Active</th>
+				<th>Actions</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -20,7 +21,10 @@
 				<tr>
 					<td>${court.courtId}</td>
 					<td>${court.active}</td>
-					<td><a href="<c:url value='/delete-court/${court.courtId}' />">delete</a></td>
+					<td>
+						<a href="<c:url value='/activate-court/${court.courtId}' />">Activate</a> | 
+						<a href="<c:url value='/deactivate-court/${court.courtId}' />">Deactivate</a>
+					</td>
 				</tr>
 			</c:forEach>
 		</tbody>
