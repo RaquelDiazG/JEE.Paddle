@@ -1,7 +1,10 @@
 package api;
 
+import java.util.Calendar;
+
 import business.api.Uris;
 import business.wrapper.TokenWrapper;
+import business.wrapper.TrainingWrapper;
 import business.wrapper.UserWrapper;
 import business.wrapper.UserWrapperBuilder;
 
@@ -47,4 +50,9 @@ public class RestService {
         new RestBuilder<Object>(URL).path(Uris.USERS).body(player).post().build();
     }
 
+    public void createTraining(Calendar startDate, Calendar finishDate, int courtId, int userId) {
+        TrainingWrapper trainingWrapper = new TrainingWrapper(startDate, finishDate, courtId, userId);
+        new RestBuilder<Object>(RestService.URL).path(Uris.TRAININGS).basicAuth(this.loginTrainer(), "").body(trainingWrapper).post()
+                .build();
+    }
 }
