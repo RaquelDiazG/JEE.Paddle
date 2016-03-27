@@ -37,4 +37,14 @@ public class RestService {
         new RestBuilder<Object>(URL).path(Uris.COURTS).param("id", id).basicAuth(this.loginAdmin(), "").post().build();
     }
 
+    public void registerTrainer(int suffix) {
+        UserWrapper player = new UserWrapperBuilder(suffix).build();
+        new RestBuilder<Object>(URL).path(Uris.TRAINERS).body(player).post().build();
+    }
+
+    public void registerPlayer(int suffix) {
+        UserWrapper player = new UserWrapperBuilder(suffix).build();
+        new RestBuilder<Object>(URL).path(Uris.USERS).body(player).post().build();
+    }
+
 }

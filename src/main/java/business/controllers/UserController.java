@@ -42,6 +42,18 @@ public class UserController {
         }
     }
 
+    public boolean registrationTrainer(UserWrapper userWrapper) {
+        if (null == userDao.findByUsernameOrEmail(userWrapper.getUsername())
+                && null == userDao.findByUsernameOrEmail(userWrapper.getEmail())) {
+            User user = new User(userWrapper.getUsername(), userWrapper.getEmail(), userWrapper.getPassword(), userWrapper.getBirthDate());
+            userDao.save(user);
+            authorizationDao.save(new Authorization(user, Role.TRAINER));
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public boolean existUser(int userId) {
         return (userDao.findOne(userId) != null);
     }
