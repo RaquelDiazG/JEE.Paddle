@@ -117,13 +117,41 @@ public class TrainingResourceFunctionalTesting {
     @Test
     public void testRegisterTrainingPlayer() {
         String token = restService.loginTrainer();
-        // TODO
+        // create player
+        restService.registerPlayer(12);
+        User player = userDao.findByUsernameOrEmail("u12");
+        // create training
+        User user = userDao.findByUsernameOrEmail("trainer");
+        restService.createTraining(new GregorianCalendar(2018, 10, 14, 12, 00, 00), new GregorianCalendar(2018, 10, 22, 12, 00, 00), 10,
+                user.getId());
+        List<Training> list = trainingDao.findAll();
+        Training training = list.get(list.size() - 1);
+        // register
+        new RestBuilder<Object>(RestService.URL).path(Uris.TRAININGS).pathId(training.getId()).path(Uris.USERS).pathId(player.getId())
+                .basicAuth(token, "").post().build();
     }
 
     @Test
     public void testRegisterTrainingPlayerUnauthorized() {
-        String token = restService.loginTrainer();
-        // TODO
+        try {
+            // create player
+            restService.registerPlayer(12);
+            User player = userDao.findByUsernameOrEmail("u12");
+            // create training
+            User user = userDao.findByUsernameOrEmail("trainer");
+            restService.createTraining(new GregorianCalendar(2018, 10, 14, 12, 00, 00), new GregorianCalendar(2018, 10, 22, 12, 00, 00), 10,
+                    user.getId());
+            List<Training> list = trainingDao.findAll();
+            Training training = list.get(list.size() - 1);
+            // register
+            new RestBuilder<Object>(RestService.URL).path(Uris.TRAININGS).pathId(training.getId()).path(Uris.USERS).pathId(player.getId())
+                    .post().build();
+            fail();
+        } catch (HttpClientErrorException httpError) {
+            assertEquals(HttpStatus.UNAUTHORIZED, httpError.getStatusCode());
+            LogManager.getLogger(this.getClass())
+                    .info("testCreateTraining (" + httpError.getMessage() + "):\n    " + httpError.getResponseBodyAsString());
+        }
     }
 
     @Test

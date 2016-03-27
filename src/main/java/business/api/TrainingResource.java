@@ -54,8 +54,8 @@ public class TrainingResource {
         }
     }
 
-    @RequestMapping(value = Uris.ID + Uris.USERS + Uris.ID, method = RequestMethod.POST)
-    public void registerTrainingPlayer(@PathVariable int userId, @PathVariable int trainingId)
+    @RequestMapping(value = Uris.TRAINING_ID + Uris.USERS + Uris.USER_ID, method = RequestMethod.POST)
+    public void registerTrainingPlayer(@PathVariable int trainingId, @PathVariable int userId)
             throws NotFoundTrainingIdException, NotFoundUserIdException, AlreadyExistUserIdInTrainingIdException {
         if (!trainingController.existTraining(trainingId)) {
             throw new NotFoundTrainingIdException("id: " + trainingId);
