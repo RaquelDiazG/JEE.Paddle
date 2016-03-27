@@ -5,6 +5,7 @@ import static org.junit.Assert.fail;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.junit.After;
@@ -21,7 +22,9 @@ import business.api.Uris;
 import business.wrapper.TrainingWrapper;
 import config.PersistenceConfig;
 import config.TestsPersistenceConfig;
+import data.daos.TrainingDao;
 import data.daos.UserDao;
+import data.entities.Training;
 import data.entities.User;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -30,15 +33,20 @@ public class TrainingResourceFunctionalTesting {
 
     RestService restService = new RestService();
 
+    // DAOS NECESARIOS PARA RECURPERAR LOS IDs DE BBDD
+
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private TrainingDao trainingDao;
 
     @Before
     public void init() {
         restService.createCourt("10");
-        restService.registerTrainer(11);
-        restService.registerPlayer(12);
-        User user = userDao.findByUsernameOrEmail("u" + 11);
+        // restService.registerTrainer(11);
+        // restService.registerPlayer(12);
+        User user = userDao.findByUsernameOrEmail("trainer");
         restService.createTraining(new GregorianCalendar(2016, 10, 14, 12, 00, 00), new GregorianCalendar(2016, 10, 22, 12, 00, 00), 10,
                 user.getId());
     }
@@ -53,7 +61,7 @@ public class TrainingResourceFunctionalTesting {
 
     @Test
     public void testCreateTraining() {
-        User user = userDao.findByUsernameOrEmail("u" + 11);
+        User user = userDao.findByUsernameOrEmail("trainer");
         restService.createTraining(new GregorianCalendar(2018, 10, 14, 12, 00, 00), new GregorianCalendar(2018, 10, 22, 12, 00, 00), 10,
                 user.getId());
     }
@@ -63,7 +71,7 @@ public class TrainingResourceFunctionalTesting {
         try {
             Calendar startDate = new GregorianCalendar(2017, 10, 14, 12, 00, 00);
             Calendar finishDate = new GregorianCalendar(2017, 10, 22, 12, 00, 00);
-            User user = userDao.findByUsernameOrEmail("u" + 11);
+            User user = userDao.findByUsernameOrEmail("trainer");
             TrainingWrapper trainingWrapper = new TrainingWrapper(startDate, finishDate, 10, user.getId());
             new RestBuilder<Object>(RestService.URL).path(Uris.TRAININGS).body(trainingWrapper).post().build();
             fail();
@@ -77,14 +85,33 @@ public class TrainingResourceFunctionalTesting {
     @Test
     public void testDeleteTraining() {
         String token = restService.loginTrainer();
-        // restService.createTraining("1");
-        // new RestBuilder<Object>(RestService.URL).path(Uris.TRAININGS).param("id", "1").delete().build();
+        // create
+        User user = userDao.findByUsernameOrEmail("trainer");
+        restService.createTraining(new GregorianCalendar(2018, 10, 14, 12, 00, 00), new GregorianCalendar(2018, 10, 22, 12, 00, 00), 10,
+                user.getId());
+        // delete
+        List<Training> list = trainingDao.findAll();
+        Training training = list.get(list.size() - 1);
+        new RestBuilder<Object>(RestService.URL).path(Uris.TRAININGS).pathId(training.getId()).basicAuth(token, "").delete().build();
     }
 
     @Test
     public void testDeleteTrainingUnauthorized() {
-        String token = restService.loginTrainer();
-        // TODO
+        // create
+        User user = userDao.findByUsernameOrEmail("trainer");
+        restService.createTraining(new GregorianCalendar(2018, 10, 14, 12, 00, 00), new GregorianCalendar(2018, 10, 22, 12, 00, 00), 10,
+                user.getId());
+        // delete
+        try {
+            List<Training> list = trainingDao.findAll();
+            Training training = list.get(list.size() - 1);
+            new RestBuilder<Object>(RestService.URL).path(Uris.TRAININGS).pathId(training.getId()).delete().build();
+            fail();
+        } catch (HttpClientErrorException httpError) {
+            assertEquals(HttpStatus.UNAUTHORIZED, httpError.getStatusCode());
+            LogManager.getLogger(this.getClass())
+                    .info("testCreateTraining (" + httpError.getMessage() + "):\n    " + httpError.getResponseBodyAsString());
+        }
     }
 
     @Test
