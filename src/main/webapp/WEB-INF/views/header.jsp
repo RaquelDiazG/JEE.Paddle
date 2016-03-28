@@ -22,3 +22,5 @@
 	    <style>.error { color: red;}</style>
     </head>
 <body>
+
+<jsp:include page="menu.jsp" />

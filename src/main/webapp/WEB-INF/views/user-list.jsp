@@ -2,21 +2,21 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<jsp:include page="head.jsp" />
-
-    <jsp:include page="menu.jsp" />
+<jsp:include page="header.jsp" />
+    
+    <h1>Users</h1>
     
     <p><a href="<c:url value='/create-user'/>">Create User</a></p>
-    
-    <h1>User List</h1>
-	<table border="1">
+        
+	<div class="table-responsive">
+    <table class="table">
 		<thead>
 			<tr>
 				<th>Username</th>
 				<th>Email</th>
 				<th>Password</th>
 				<th>Birth Date</th>
-				<th>Rol</th>
+				<th>Role</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -37,5 +37,6 @@
 			</c:forEach>
 		</tbody>
 	</table>
+	</div>
 	
 <jsp:include page="footer.jsp" />

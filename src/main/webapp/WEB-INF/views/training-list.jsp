@@ -2,14 +2,14 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<jsp:include page="head.jsp" />
-
-   <jsp:include page="menu.jsp" />
+<jsp:include page="header.jsp" />
+    
+    <h1>Trainings</h1>
     
     <p><a href="<c:url value='/create-training'/>">Create Training</a></p>
-    
-    <h1>Training List</h1>
-	<table border="1">
+        
+	<div class="table-responsive">
+    <table class="table">
 		<thead>
 			<tr>
 				<th>Start Date</th>
@@ -31,5 +31,6 @@
 			</c:forEach>
 		</tbody>
 	</table>
+	</div>
 	
 <jsp:include page="footer.jsp" />
