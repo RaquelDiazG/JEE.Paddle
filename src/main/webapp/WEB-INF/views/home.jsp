@@ -3,6 +3,7 @@
 
 <c:import url="header.jsp" />
 
-<h1>Práctica para la asignatura "Desarrollo de Aplicaciones Web Distribuidas de Código Abierto" (JEE)</h1>
-     
+<h1>Práctica para la asignatura "Desarrollo de Aplicaciones Web
+	Distribuidas de Código Abierto" (JEE)</h1>
+
 <c:import url="footer.jsp" />

@@ -3,12 +3,14 @@
 
 <jsp:include page="header.jsp" />
 
-    <h1>Operation Ok</h1>
+<h1>Operation Ok</h1>
 
-    <h3>Se ha creado satisfactoriamente el siguiente elemento:</h3>
-    
-    <p>(${elemento})</p>
+<h3>Se ha creado satisfactoriamente el siguiente elemento:</h3>
 
-    <p><a href="<c:url value='/home' />">Volver</a></p>
+<p>(${elemento})</p>
+
+<p>
+	<a href="<c:url value='/home' />">Volver</a>
+</p>
 
 <jsp:include page="footer.jsp" />
